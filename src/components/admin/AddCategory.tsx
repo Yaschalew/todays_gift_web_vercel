@@ -27,8 +27,8 @@ const AddCategory = () => {
   const {isCategory, error, categories } = useCategory();
   const MainCategories = categories?.filter((item : Category) => item.type == 'root');
   useEffect(() => {
-    client.get("/categories").then((response) => {
-      setCategory(response.data);
+    client.get("/categories").then((response:any) => {
+      // setCategory(response.data);
     });
     if (id !== "new") {
       client.get("/categories/" + id).then((response) => {
