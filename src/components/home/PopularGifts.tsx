@@ -1,10 +1,10 @@
-import { Button, Typography } from "antd";
+import { Button, Spin} from "antd";
 import { Flex } from "antd";
 import { useState } from "react";
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import Cards from "../../ui/Cards";
-import { useProducts } from "./useProduct";
+import { useProducts } from "../../services/useProduct";
 import { useNavigate } from "react-router-dom";
+
 type ProductProps = {
   id: string;
   brand: string;
@@ -19,45 +19,42 @@ type ProductProps = {
 }
 
 function PopularGifts() {
-  const { Title } = Typography;
+
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(4);
+  console.log(setCurrentIndex)
   const { isLoading, product } = useProducts();
+   
+  const displayProduct = product?.products.slice(currentIndex, currentIndex + 6);
+  const handleClickCategory = () => {
+    navigate(`/category`)
+    window.scrollTo(0, 0);
+  };
 
   if (isLoading) {
-    return <h1>Loading ...</h1>
-  }
-
-  const handleNext = (index: number) => {
-    setCurrentIndex(index);
-  };
-
-  const handlePrevious = (index: number) => {
-    setCurrentIndex(index);
-  };
-  const handleClick = (items: string) => {
-    navigate(`/search/${items}`)
-  }
-
-
-  const displayProduct = product?.products.slice(currentIndex, currentIndex + 3);
-
+    return (
+      <Flex className="pt-36 flex-col items-center space-y-20 justify-center">
+      <h1 className="font-semibold">Loading ...</h1>
+      <Spin/>
+    </Flex>
+    )};
+    
   return (
-    <Flex className="flex-col pt-8">
-      <Flex className="pt-4 md:px-20 justify-between">
+    <Flex className="flex-col space-y-5 sm:pt-8 pt-[6rem] w-[90%] m-auto">
+      <Flex className="pt-4 px-2 justify-between w-[96%] ">
         <Flex>
-          <Title level={2} className="font-bold">Today's Featured Gifts</Title>
+          <p className="font-bold sm:text-3xl text-[1.3rem]">Today's Featured Gifts</p>
         </Flex>
         <Flex>
-          <Button onClick={() => handleClick("View All")} >
+          <Button onClick={() => handleClickCategory()} className="sm:inline hidden text-[#60B7C3] px-6" size="large"  >
             View All
           </Button>
         </Flex>
       </Flex>
       <Flex className=" relative ">
-        <Flex className="truncate  justify-between md:pl-[7rem] sm:pl-[2rem] pl-[1rem]">
+        <Flex className="truncate grid sm:grid-rows-2 grid-rows-3 grid-flow-col gap-4 m-auto ">
           {displayProduct?.map((products: ProductProps, index: number) => (
-              <Cards Products={products} key={index}/>
+              <Cards Products={products} key={index} />
           ))}
         </Flex>
       </Flex>

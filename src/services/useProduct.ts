@@ -1,13 +1,29 @@
+
 import { useQuery } from '@tanstack/react-query';
-import { getProduct } from '../api/apiProduct';
-export function useProduct () {
-    const {isLoading, data: product, error} =  useQuery({
-        queryKey: ['Product'],
-        queryFn: getProduct
+import { apiProducts } from './apiProducts';
+import { getAllProduct } from '../api/apiProduct';
+
+
+export function useProducts(){
+  
+    const {isLoading, data: products, error} =  useQuery({
+        queryKey: ['product'],
+        queryFn: apiProducts
        }) ;
+       
+       const product = products;
        return {isLoading, error, product} 
-    }
-
-
-    
+       
+}
+export function useAllProduct(){
+  
+    const {isLoading: isProduct, data: products} =  useQuery({
+        queryKey: ['Product'],
+        queryFn: getAllProduct
+       }) ;
+       
+       
+       return {isProduct, products} 
+       
+}
 

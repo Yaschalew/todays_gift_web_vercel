@@ -1,21 +1,30 @@
 import axios, { AxiosResponse } from 'axios';
 
-const API_BASE_URL = ' https://todaysgift.avolaict.com/api';
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-interface Category{
-    name: string;
-    description : string;
+const API_BASE_URL = `${BASE_URL}/category`;
+
+type Category = {
+  uid: number;
+  name: string;
+  parent: string;
+  children: [];
+  type: string;
+};
+
+type mainCategory = {
+  categories: Category[]
 }
 type CreateCategory = Category;
-type GetCategory = Category[];
+//type GetCategory = Category[];
 
 const api = axios.create({
     baseURL: API_BASE_URL,
   });
 
- export const getCategory =  async () : Promise<GetCategory> =>{
+ export const getAllCategory =  async () : Promise<mainCategory> =>{
     try{
-        const response: AxiosResponse<GetCategory> = await api.get('/categories');
+        const response: AxiosResponse<mainCategory> = await api.get('/all');
         return response.data;
     }catch(error){
         console.error('Error fetching category:', error);

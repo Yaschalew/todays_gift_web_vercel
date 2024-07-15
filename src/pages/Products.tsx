@@ -1,12 +1,15 @@
 /* eslint-disable eqeqeq */
-import { useProducts } from "../components/home/useProduct";
+import { useProducts } from "../services/useProduct";
 import Description from "../components/product/Description";
 import ProductDisplay from "../components/product/ProductDisplay";
-import ProductReview from "../components/product/ProductReview";
+//import ProductReview from "../components/product/ProductReview";
 import { useParams } from "react-router-dom";
 import { useReview } from "../components/product/useReview";
 import PopularGifts from "../components/product/RelatedProduct";
-import OtherProduct from "../components/product/OtherProduct";
+//import OtherProduct from "../components/product/OtherProduct";
+
+import AppDesc from "../components/home/AppDesc";
+import Navigation from "../ui/Navigation";
 
 type  ProductProps ={
   id: string;
@@ -27,7 +30,7 @@ type Params = {
 
 function Products() {
   const{isLoading, product} =  useProducts();
-  const{isLoading : isReviewing, review}=  useReview();
+  const{isLoading : isReviewing}=  useReview();
   const { id } = useParams<Params>();
   const filterProduct = product?.products.filter((item:ProductProps) => id == item.id);
 
@@ -41,9 +44,11 @@ function Products() {
       <div className="space-y-7 pt-16">
        <ProductDisplay filterProduct={filterProduct}/>
        <Description filterProduct={filterProduct}/>
+       {/* <ProductReview review={review}/> */}
        <PopularGifts/>
-       <ProductReview review={review}/>
-       <OtherProduct/>
+       <AppDesc/>
+       <Navigation/>
+       {/* <OtherProduct/> */}
        </div>
     )
 }

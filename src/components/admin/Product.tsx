@@ -4,7 +4,18 @@ import { Table, Button } from "antd";
 import type { ColumnsType, TableProps } from "antd/es/table";
 import { PlusOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { useProduct } from "../../services/useProduct";
+import { useAllProduct } from "../../services/useProduct";
+
+interface Product{
+  name: string;
+  description : string;
+  price: number;
+  category:[];
+  tags:[];
+  stock: number;
+  thumbnail: string;
+  images :[];
+}
 
 interface DataType {
   name: string;
@@ -13,10 +24,14 @@ interface DataType {
   quantity: number;
 }
 
-const columns: ColumnsType<DataType> = [
+const columns: ColumnsType<Product> = [
   {
     title: "Name",
     dataIndex: "name",
+  },
+  {
+    title: "Image",
+    dataIndex: "thumbnail",
   },
   {
     title: "Description",
@@ -27,15 +42,21 @@ const columns: ColumnsType<DataType> = [
     dataIndex: "price",
   },
   {
-    title: "Quantity",
-    dataIndex: "quantity",
+    title: "Stock",
+    dataIndex: "stock",
+  },
+  {
+    title: "Tags",
+    dataIndex: "tags",
   }
 ];
 
 
 const Product = () => {
   const navigate = useNavigate();
-  const {isLoading, product}= useProduct();
+  const {isProduct, products}= useAllProduct();
+  // const mainProduct = products.map((item) => console.log(item))
+  console.log(products)
   const handleAddProduct = () => {
     navigate('/admin/add-product');
   }
@@ -43,7 +64,7 @@ const Product = () => {
     pageSize: 5,
   };
   
-  if (isLoading) {
+  if (isProduct) {
     return <div>Loading...</div>; 
   }
   return (
@@ -56,7 +77,7 @@ const Product = () => {
           Add
         </Button>
       </div>
-      <Table columns={columns} dataSource={product}  pagination={paginationConfig}/>
+      <Table columns={columns} dataSource={products}  pagination={paginationConfig}/>
     </div>
   );
 };

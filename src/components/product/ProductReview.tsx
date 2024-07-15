@@ -1,14 +1,13 @@
-import { Divider, Flex, Typography } from "antd";
+import { Flex, Typography } from "antd";
 import {
   CircularProgressbarWithChildren,
   buildStyles,
 } from "react-circular-progressbar";
-import { useSearchParams } from "react-router-dom";
+import {  useSearchParams } from "react-router-dom";
 import "react-circular-progressbar/dist/styles.css";
 import { IoStar, IoStarHalfOutline, IoStarOutline } from "react-icons/io5";
-import images from "../../constants";
-import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
-import { useState } from "react";
+// import images from "../../constants";
+// import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 type review = {
   asin: string;
   body: string;
@@ -39,13 +38,22 @@ interface ReviewsProps {
 interface Review {
   review?: ReviewsProps;
 }
+// type Params = {
+//   id: string;
+// }
 const ProductReview = ({ review }: Review) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = !searchParams.get("page")
-    ? 1
-    : Number(searchParams.get("page"));
+  console.log(setSearchParams)
+  // const { id } = useParams<Params>();
+  // const currentPage = !searchParams.get("page")
+  //   ? 1
+  //   : Number(searchParams.get("page"));
+
+    console.log(review?.summary)
+    console.log(searchParams)
+
   const { Title } = Typography;
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  //const [currentIndex, setCurrentIndex] = useState<number>(0);
   const renderStarRating = (rating: any) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -76,75 +84,78 @@ const ProductReview = ({ review }: Review) => {
     }
     return stars;
   };
-  const boldAndShadowStyle = {
-    fontWeight: "bold",
-    boxShadow: "1px 0.5px 0px 0px rgba(0, 0, 0, 0.4)",
-  };
+  // const boldAndShadowStyle = {
+  //   fontWeight: "bold",
+  //   boxShadow: "1px 0.5px 0px 0px rgba(0, 0, 0, 0.4)",
+  // };
 
   const ratingreview = review?.reviews;
+  console.log(ratingreview)
   const reviewCount = ratingreview?.length;
-  const reviewproduct = ratingreview?.slice(currentIndex, currentIndex + 4);
+  //const reviewproduct = ratingreview?.slice(currentIndex, currentIndex + 4);
   const pageCount = reviewCount !== undefined ? Math.ceil(reviewCount / 4) : 0;
-  const handleReviewNext = () => {
-    //
-    //   console.log(currentIndex);
-    //   console.log(ratingreview.length);
-    //
-    // }
-    const next = currentPage === pageCount ? currentPage : currentPage + 1;
-    searchParams.set("page", next.toString());
-    setSearchParams(searchParams);
-    if (currentPage <= pageCount) {
-    setCurrentIndex(currentIndex + 4);
-    }
-  };
-  console.log(currentPage)
-  console.log(pageCount)
-  const handleReviewPrevious = () => {
-    //
-    //   console.log(currentIndex);
-    //   console.log(ratingreview.length);
+ 
+  // const handleReviewNext = () => {
+  //   //
+  //   //   console.log(currentIndex);
+  //   //   console.log(ratingreview.length);
+  //   //
+  //   // }
+  //   const next = currentPage === pageCount ? currentPage : currentPage + 1;
+  //   searchParams.set("page", next.toString());
+  //   setSearchParams(searchParams);
+  //   if (currentPage <= pageCount) {
+  //     setCurrentIndex(currentIndex + 4);
+  //   }
+  // };
+ 
+  // const handleReviewPrevious = () => {
+  //   //
+  //   //   console.log(currentIndex);
+  //   //   console.log(ratingreview.length);
 
-    // }
-    const prev = currentPage === 1 ? currentPage : currentPage - 1;
-    searchParams.set("page", prev.toString());
-    setSearchParams(searchParams);
-  
-    if (currentPage <= pageCount  ) {
-      setCurrentIndex(currentIndex - 4);
-    }
-  };
+  //   // }
+  //   const prev = currentPage === 1 ? currentPage : currentPage - 1;
+  //   searchParams.set("page", prev.toString());
+  //   setSearchParams(searchParams);
+
+  //   if (currentPage <= pageCount) {
+  //     setCurrentIndex(currentIndex - 4);
+  //   }
+  // };
   if (pageCount <= 1) return null;
   return (
     <Flex className="justify-center">
       <Flex className="flex-col lg:w-[80%] sm:w-[90%] px-5 m-auto">
-        <Title level={2}>Product Review</Title>
+        <Title level={2}>Gift Review</Title>
         <Flex className="lg:space-x-12 space-y-3 lg:flex-row flex-col ">
           <div style={{ width: "7rem", height: "7rem" }}>
             <CircularProgressbarWithChildren
-              value={100}
+              value={70}
               strokeWidth={3}
               styles={buildStyles({
                 pathColor: "#FFC540",
               })}
             >
-              <div style={{ fontSize: 12, marginTop: 2 }}>
-                <h1 className="text-blue-600 text-2xl">rate</h1>
-                <p>Complete</p>
-              </div>
+               {/* {reviewproduct?.map((reviews: review, i: number) => ( */}
+              <Flex style={{ fontSize: 12, marginTop: 2 }} className="items-center flex-col">
+                <h1 className="text-blue-600 text-2xl">{review?.summary.rating}</h1>
+                <p>{`(${review?.reviews.length} Reviews)`}</p>
+              </Flex>
+               {/* ))} */}
             </CircularProgressbarWithChildren>
           </div>
           <Flex className="flex-col space-y-3 ">
             <Flex>{renderStarRating(review?.summary.rating)}</Flex>
-            <Flex className="space-x-1 ">
+            {/* <Flex className="space-x-1 ">
               <button className="border border-gray-300 py-2 md:px-6 sm:px-3 px-1 rounded-md">
                 All(139)
               </button>
               <button className="border border-gray-300 py-2 md:px-6 sm:px-3 px-1 rounded-md">
                 With Images(69)
               </button>
-            </Flex>
-            <Flex className="space-x-1 flex-wrap sm:space-y-0 ">
+            </Flex> */}
+            {/* <Flex className="space-x-1 flex-wrap sm:space-y-0 ">
               {[5, 4, 3, 2, 1].map((number) => (
                 <button
                   key={number}
@@ -153,11 +164,10 @@ const ProductReview = ({ review }: Review) => {
                   {number} Stars
                 </button>
               ))}
-            </Flex>
+            </Flex> */}
           </Flex>
         </Flex>
-        <Divider />
-        <Flex className="flex-col space-y-10 w-[90%] ">
+        {/* <Flex className="flex-col space-y-10 w-[90%] ">
           {reviewproduct?.map((reviews: review, i: number) => (
             <>
               <Flex key={i} className="justify-between items-center space-x-2">
@@ -181,8 +191,8 @@ const ProductReview = ({ review }: Review) => {
               <Divider style={boldAndShadowStyle} />
             </>
           ))}
-        </Flex>
-        <Flex className="text-2xl text-[#B6B6B6] space-x-20 mt-4 justify-center">
+        </Flex> */}
+        {/* <Flex className="text-2xl text-[#B6B6B6] space-x-20 mt-4 justify-center">
           <button onClick={handleReviewPrevious}>
             <CiCircleMinus size={40} />
           </button>
@@ -200,7 +210,7 @@ const ProductReview = ({ review }: Review) => {
           >
             <CiCirclePlus size={40} />
           </button>
-        </Flex>
+        </Flex> */}
       </Flex>
     </Flex>
   );

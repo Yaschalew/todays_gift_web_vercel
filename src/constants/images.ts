@@ -27,7 +27,25 @@ import luxurios from "../assets/luxurios.jpeg"
 import spirtual from "../assets/spirtual.jpeg"
 import slider5 from "../assets/Slide_Image.png"
 import slider6 from "../assets/Slide_Image2.png"
+import C1 from "../assets/1.png"
+import C2 from "../assets/2.png"
+import C3 from "../assets/3.png"
+import C4 from "../assets/4.png"
+import C5 from "../assets/5.png"
+import C6 from "../assets/6.png"
+import C7 from "../assets/7.png"
+import C8 from "../assets/8.png"
+import tele from "../assets/telebirr.png"
+import abyssinia from "../assets/abissinyas.png"
+import cbe from "../assets/cbee.png"
+import banner from "../assets/banner.png"
+import banner2 from "../assets/banner2.png"
+import banner3 from "../assets/banner3.png"
+import banner4 from "../assets/banner4.png"
 export default {
+  tele,
+  cbe,
+  abyssinia,
   cultural,
   forhim,
   fungift,
@@ -56,5 +74,17 @@ export default {
   todays,
   person,
   present, 
-  app
+  app,
+  C1,
+  C2,
+  C3,
+  C4,
+  C5,
+  C6,
+  C7, 
+  C8,
+  banner,
+  banner2,
+  banner3,
+  banner4
 };

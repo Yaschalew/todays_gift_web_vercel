@@ -1,13 +1,20 @@
 import axios, { AxiosResponse } from 'axios';
 
-const API_BASE_URL = 'https://todaysgift.avolaict.com/api';
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+const API_BASE_URL = `${BASE_URL}/product`;
 
 interface Product{
     name: string;
     description : string;
     price: number;
-    quantity: number;
+    category:[];
+    tags:[];
+    stock: number;
+    thumbnail: string;
+    images :[];
 }
+
 type CreateProduct = Product;
 type GetProduct = Product[];
 
@@ -15,9 +22,9 @@ const api = axios.create({
     baseURL: API_BASE_URL,
   });
 
- export const getProduct =  async () : Promise<GetProduct> =>{
+ export const getAllProduct =  async () : Promise<GetProduct> =>{
     try{
-        const response: AxiosResponse<GetProduct> = await api.get('/products');
+        const response: AxiosResponse<GetProduct> = await api.get('/all');
         return response.data;
     }catch(error){
         console.error('Error fetching product:', error);

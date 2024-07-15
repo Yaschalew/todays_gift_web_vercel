@@ -14,11 +14,10 @@ type LoginData = {
 
 const Login = () => {
   const navigate = useNavigate();
-  const {isLoading, users} = useSignupData();
+  const { users} = useSignupData();
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm<LoginData>();
 
   const googleSuccess = () => {
@@ -64,7 +63,7 @@ const Login = () => {
             <input
               placeholder="Email"
               type="email"
-              className=""
+              className="p-3"
               {...register("email", {
                 required: "This field is required",
               })}
@@ -72,7 +71,7 @@ const Login = () => {
             <input
               placeholder="Password"
               type="password"
-              className=""
+              className="p-3"
               {...register("password", {
                 required: "This field is required",
               })}
@@ -90,17 +89,18 @@ const Login = () => {
         </form>
         <Flex className="flex-col items-center  space-y-2">
           <p className="text-[#909090]">or login with</p>
-          <Flex className="flex-col space-y-2 w-[130%]">
+          <Flex className="flex-col space-y-2 w-[130%] items-center">
             <GoogleLogin
               clientId="164349303431-baknj25ut3na4gtkjcglupc0ib01i75p.apps.googleusercontent.com"
               render={(renderProps) => (
                 <Button
                   size="large"
                   color="primary"
+                  className=""
                   onClick={renderProps.onClick}
                   disabled={renderProps.disabled}
                 >
-                  <Flex className="items-center space-x-16 ">
+                  <Flex className="items-center space-x-10 ">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       x="0px"
@@ -147,7 +147,7 @@ const Login = () => {
                   // disabled={renderProps.disabled}
                   className="text-center py-2 rounded-lg border text-[#707070]  border-[#c8bbbb]"
                 >
-                  <Flex className="items-center space-x-16 ">
+                  <Flex className="items-center space-x-7 ">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       x="0px"

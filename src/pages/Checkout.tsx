@@ -1,12 +1,15 @@
 import { Flex } from "antd"
 import CheckoutList from "../components/checkout/CheckoutList"
-import CheckoutPromo from "../components/checkout/CheckoutPromo"
+import AppDesc from "../components/home/AppDesc"
+import Navigation from "../ui/Navigation"
+
 
 const Checkout = () => {
     return (
-    <Flex className="pt-24">
+    <Flex className="flex-col pt-24">
         <CheckoutList/>
-        <CheckoutPromo/>
+        <AppDesc/>
+        <Navigation/>
     </Flex>
     )
 }

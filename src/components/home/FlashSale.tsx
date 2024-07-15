@@ -1,17 +1,18 @@
-import { Button, Flex } from "antd";
-import {useState } from "react";
+import { Flex, Spin } from "antd";
 import { FaBolt } from "react-icons/fa";
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import Cards from "../../ui/Cards";
 import "./home.css";
-import { useProducts } from "./useProduct";
-import CardSlider from "../../ui/CardSlider";
+import { useProducts } from "../../services/useProduct";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import {Autoplay, Navigation } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 
-type  ProductProps ={
+
+import { useCart } from "./useCart";
+import { useNavigate } from "react-router-dom";
+import { MdOutlineStarPurple500 } from "react-icons/md";
+
+type ProductProps = {
   id: string;
   brand: string;
   category: string;
@@ -25,82 +26,114 @@ type  ProductProps ={
 }
 
 function FlashSale() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const{isLoading, product} =  useProducts();
-  if(isLoading){
-    return <h1>Loading ...</h1>
-  }
-  const handleNext = (index: number) => {
-    setCurrentIndex(index);
-  };
-  const handlePrevious = (index: number) => {
-    setCurrentIndex(index);
-  };
-  
-  const displayProduct = product?.products.slice(currentIndex, currentIndex + 3);
-  
-  
-  return (
-    <Flex className=" relative py-14 mt-10  bg-[rgb(59,186,202)] ">
-      <Flex className="absolute md:inset-y-0 bg-[rgb(59,186,202)] top-[1.5rem] md:top-[0rem] md:py-32 lg:px-16 px-10 left-0 ">
-        <Flex className="md:flex-col flex-row items-start gap-5 ">
-          <div className="bg-white p-2 rounded-full">
-            <FaBolt className="text-[#FFC540] lg:text-5xl text-4xl" />
-          </div>
-          <div>
-            <p className="lg:text-5xl sm:text-4xl text-3xl text-white font-medium">
-              Flash Sale
-            </p>
-            <p className="text-white font-light p-1">ends in 00 : 20 : 34 </p>
+  const { isLoading, product } = useProducts();
 
-            <Button className="bg-white text-blue rounded-lg">View All</Button>
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
+  const handleClick = (id: string) => {
+    navigate(`/product/${id}`);
+    window.scrollTo(0, 0);
+  };
+
+  const handleClickCategory = () => {
+    navigate(`/category`)
+    window.scrollTo(0, 0);
+  };
+
+  if (isLoading) {
+    return (
+      <Flex className="pt-10 flex-col items-center space-y-20 justify-center">
+        <h1 className="font-semibold">Loading ...</h1>
+        <Spin />
+      </Flex>
+    )
+  };
+  return (
+    <Flex className="md:flex-row flex-col overflow-hidden  py-5 mt-10 bg-[rgb(59,186,202)] ">
+      <Flex className="flex-row md:flex-col items-center md:items-start space-y-0  md:space-y-6 justify-between md:justify-center bg-[rgb(59,186,202)] sm:px-16 px-8 md:px-10">
+        <Flex className="md:flex-col flex-row md:items-start items-center gap-5">
+          <div className="bg-white p-2 rounded-full">
+            <FaBolt className="text-[#FFC540] md:text-5xl sm:text-4xl text-2xl" />
           </div>
+          <Flex className="md:flex-col flex-row sm:space-y-6 md:items-start items-center">
+            <Flex className="flex-col w-[150%]">
+              <p className="sm:text-5xl md:text-4xl text-2xl text-white sm:font-medium font-extrabold">
+                Flash Sale
+              </p>
+              <p className="text-white font-light sm:p-1 sm:text-[1rem] text-[.8rem]">Ends in 00 : 20 : 34 </p>
+            </Flex>
+          </Flex>
+        </Flex>
+        <Flex>
+          <button onClick={() => handleClickCategory()} className="bg-white rounded sm:p-3 sm:px-7 p-2 md:text-[1rem] sm:text-[.9rem] text-[.8rem] text-[#60B7C3] font-semibold" > View All</button>
         </Flex>
       </Flex>
-      {currentIndex !== 0 && (
-        <Flex className=" items-center z-10 bg-[rgb(59,186,202)] lg:w-28 top-[3rem] md:top-[0rem] absolute inset-y-0 lg:left-[18rem] md:left-[13rem] left-[0rem]">
-          <button
-            onClick={() =>
-              handlePrevious(
-                currentIndex === 0 ? product?.products.length - 1 : currentIndex - 1
-              )
-            }
-            className="bg-white p-1 rounded-full absolute md:top-[12rem] top-[15.2rem] lg:left-[5rem] left-[0.7rem]  "
-          >
-            <IoIosArrowBack className="text-blue-500 text-4xl" />
-          </button>
-        </Flex>
-      )}
-        
-      <Flex className="truncate lg:pl-[22rem] md:pl-[14rem] pl-[2.5rem] top-[3rem] md:top-[0rem] md:pt-0 pt-[4rem]">
-      {/* <Swiper  
-      autoplay={{
-        delay: 1500,
-        disableOnInteraction: false,
-      }} 
-      navigation={true} 
-      slidesPerView={3}
-      modules={[Navigation]} 
-      className="mySwiper"> */}
-        {displayProduct?.map((products:ProductProps, index: number) => (
-        //  <SwiperSlide> 
-          <CardSlider Products={products}  key={index} />
-          // </SwiperSlide>
+      <Swiper
+        breakpoints={{
+          0: {
+            slidesPerView: 1.8, // When screen is >= 0px
+          },
+          440: {
+            slidesPerView: 2.2, // When screen is >= 0px
+          },
+          640: {
+            slidesPerView: 2.5, // When screen is >= 640px
+          },
+          768: {
+            slidesPerView: 2, // When screen is >= 0px
+          },
+          860: {
+            slidesPerView: 2.5, // When screen is >= 0px
+          },
+          1024: {
+            slidesPerView: 3.2, // When screen is >= 1024px
+          },
+        }}
+        //spaceBetween={20}
+        navigation={true}
+        modules={[Navigation]}
+        className="mySwiper  sm:w-[100%] md:w-[85%]  w-[100%] me-1"
+      >
+        {product?.products?.map((products: ProductProps, index: number) => (
+          <SwiperSlide key={index}>
+            <Flex className="space-y-2  flex-col w-auto h-auto sm:m-4 m-2  ">
+              <button onClick={() => handleClick(products.id)}>
+                <img
+                  alt="example"
+                  src={products.thumbnail}
+                  className="md:w-[490px] w-[100%] h-[100%] rounded border border-black"
+                />
+              </button>
+              <button onClick={(event) => addToCart(products, event)} className=" ">
+                <div style={{ backgroundColor: 'white', borderRadius: 6, padding: 4 }} className="my-icons ">
+                  <img src='/icons/buy.svg' className="sm:inline hidden text-[#2BA0AF] p-1  sm:h-[1.8rem] h-[1.4rem] " />
+                  <img src='/icons/heart.svg' className="sm:hidden inline text-[#2BA0AF] p-1  sm:h-[1.8rem] h-[1.4rem] " />
+                </div>
+              </button>
+              <Flex className="flex-col">
+                <Flex className=" text-white items-end justify-between flex-wrap">
+                  <p className="font-semibold text-center capitalize sm:text-[16px] text-[13px] leading-4  truncate">
+                    Gift Combo
+                  </p>
+                  <Flex className="font-semibold text-center capitalize sm:text-[18px] text-[13px] leading-4  truncate">
+                    <p>{products.price} ETB</p>
+                  </Flex>
+                </Flex>
+                <Flex className="items-end justify-between flex-wrap">
+                  <div>
+                    <p className=' text-white sm:text-[1rem] text-[.7rem]'>Gift for him</p>
+                  </div>
+                  <Flex className="items-center">
+                    <MdOutlineStarPurple500 className="text-[#FFC540] " />
+                    <p className="text-white font-semibold sm:text-[.8rem] text-[.8rem]">{products.rating}</p>
+                  </Flex>
+                </Flex>
+              </Flex>
+            </Flex>
+          </SwiperSlide>
         ))}
-        {/* </Swiper> */}
-      </Flex>
-      {/* {currentIndex !== product.length - 1 && (  */}
-      <Flex className="items-center  lg:w-28 md:w-20 w-12 absolute inset-y-0 right-0 top-[6rem] md:top-[0rem]">
-        <button
-          onClick={() =>
-            handleNext(currentIndex === product?.products.length - 1 ? 0 : currentIndex + 1)
-          }
-          className="bg-white p-1 rounded-full absolute top-[12rem] lg:right-[5rem] md:right-[3rem] right-[1rem]  "
-        >
-          <IoIosArrowForward className="text-blue-500 text-4xl" />
-        </button>
-      </Flex>
-       {/* )}  */}
+
+      </Swiper>
     </Flex>
   );
 }

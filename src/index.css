@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 
 @font-face {
   font-family: 'Baou';
@@ -8,11 +12,11 @@
   
 }
 
+
+
  body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 } 
@@ -21,18 +25,11 @@ code {
     monospace;
 }
 
-.magnify-image:hover {
-  transform: scale(1.1); 
-  transition: transform 0.3s ease; 
-}
-
 [type=radio] {
   display: none;
 }
 
 #slider {
-  width: 55vw;   
-  height: 30vw; 
   margin: 0 auto; 
   position: relative;
   perspective: 1000px; 
@@ -51,17 +48,15 @@ code {
   transition: transform 0.4s ease;
 }
 #slider label img{
-  height: 400px;
-  width: 100%;
   background-size: cover;
 }
-
 
  #s1:checked ~ #slide4, #s2:checked ~ #slide5,
 #s3:checked ~ #slide1, #s4:checked ~ #slide2,
 #s5:checked ~ #slide3{
   box-shadow: 0 1px 4px 0 rgba(0,0,0,.37); 
   transform: translate3d(-40%,0,-350px); 
+  opacity: 0.4;
  } 
 
  #s1:checked ~ #slide5, #s2:checked ~ #slide1,
@@ -69,6 +64,7 @@ code {
 #s5:checked ~ #slide4 {
   box-shadow: 0 6px 10px 0 rgba(0,0,0,.3), 0 2px 2px 0 rgba(0,0,0,.2);
   transform: translate3d(-20%,0,-150px);
+  opacity: 0.8;
 }
 
 #s1:checked ~ #slide1, #s2:checked ~ #slide2,
@@ -83,6 +79,7 @@ code {
 #s5:checked ~ #slide1 {
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3), 0 2px 2px 0 rgba(0,0,0,.2);
   transform: translate3d(20%,0,-150px);
+  opacity: 0.8;
 } 
 
 #s1:checked ~ #slide3, #s2:checked ~ #slide4,
@@ -90,6 +87,117 @@ code {
 #s5:checked ~ #slide2 {
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
   transform: translate3d(40%,0,-350px);
+  opacity: 0.4;
 } 
 
 
+.menu-icon {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+  transform: translateX(0);
+}
+
+.menu-icon.open {
+  transform: translateX(calc(100vw - 30px));
+}
+
+.menu-icon .bar1, 
+.menu-icon .bar2, 
+.menu-icon .bar3 {
+
+  width: 100%;
+  height: 4px;
+  background-color: #333;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-icon.open .bar1 {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-icon.open .bar2 {
+  opacity: 0;
+}
+
+.menu-icon.open .bar3 {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #2BA0AF; 
+  background-color: white ;  
+  padding: 25px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.my-icons{
+  position: absolute;
+  padding-left: 20rem;
+  top: 69%;
+  left: 80%;
+  /* absolute lg:pl-[20.3rem] pl-[70%] pt-[70%]
+  sm:top-[18rem] top-[57%] */
+}
+@media (max-width: 640px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none;
+  }
+  .my-icons{
+    top: 68%;
+    left: 80%;
+  }
+}
+
+@media (max-width: 440px) {
+  .my-icons{
+    top: 52%;
+    left: 65%;
+  }
+}
+
+@media (max-width: 768px) {
+  .my-icons{
+    top: 74%;
+    left: 81%;
+  }
+}
+
+@media (max-width: 860px) {
+  .my-icons{
+    top: 58%;
+    left: 75%;
+  }
+}
+@media (max-width: 1024px) {
+  .my-icons{
+    top: 62%;
+    left: 76%;
+  }
+}
+@media (max-width: 1215px) {
+  .my-icons{
+    top: 62%;
+    left: 76%;
+  }
+}
+
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 27px; 
+  font-weight: bold;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: #f0f0f0; 
+}

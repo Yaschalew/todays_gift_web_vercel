@@ -66,6 +66,7 @@ const Signup = () => {
     } catch (error) {
       console.log("error");
     }
+    navigate(`/home`)
   };
 
   const googleSuccess = () => {
@@ -86,7 +87,7 @@ const Signup = () => {
     // console.log('Google Sign In was unsuccessful. Try Again Later');
   };
   return (
-    <Flex className="justify-center items-center space-y-6 flex-col mt-12">
+    <Flex className="justify-center items-center space-y-6 flex-col mt-4">
       <img src={images.Today} className="sm:w-[70px] w-[50px]" alt="logo" />
       <Flex className="border border-[#D0D0D0] rounded-lg">
         <Flex className=" space-y-5 flex-col py-5 ">
@@ -94,13 +95,13 @@ const Signup = () => {
             Signup
           </h2>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Flex className="flex-col px-10  space-y-3 w-[130%]">
+            <Flex className="flex-col px-10 item-center space-y-3 w-[130%]">
               <Flex className="md:space-x-3 justify-start md:flex-row flex-col space-y- w-[74%]">
                 <Flex className="flex-col">
                   <input
                     type="text"
                     placeholder="FirstName"
-                    className="my-1.5"
+                    className="my-1.5 p-2"
                     {...register("firstName", {
                       required: "This field is required",
                     })}
@@ -115,7 +116,7 @@ const Signup = () => {
                   <input
                     type="text"
                     placeholder="LastName"
-                    className="my-1"
+                    className="my-1 p-2"
                     {...register("lastName", {
                       required: "This field is required",
                     })}
@@ -131,7 +132,7 @@ const Signup = () => {
                 <input
                   type="number"
                   placeholder="Phone Number"
-                  className="w-[74%]"
+                  className="w-[74%] p-2"
                   {...register("phone", { valueAsNumber: true })}
                 />
                 {errors.phone && (
@@ -142,7 +143,7 @@ const Signup = () => {
                 <input
                   type="email"
                   placeholder="Email"
-                  className="w-[74%]"
+                  className="w-[74%] p-2"
                   {...register("email", {
                     required: "This field is required",
                   })}
@@ -155,7 +156,7 @@ const Signup = () => {
                 <input
                   type="password"
                   placeholder="Password"
-                  className="w-[74%]"
+                  className="w-[74%] p-2"
                   {...register("password", {
                     required: "This field is required",
                   })}
@@ -170,7 +171,7 @@ const Signup = () => {
                 <input
                   type="password"
                   placeholder="Confirm Password"
-                  className="w-[74%]"
+                  className="w-[74%] p-2"
                   {...register("confirmPassword", {
                     required: "This field is required",
                   })}
@@ -184,7 +185,7 @@ const Signup = () => {
               <Flex className="flex-col ">
                 <button
                   type="submit"
-                  className=" bg-[#2BA0AF] text-white w-[30%] py-2 rounded-lg"
+                  className=" bg-[#2BA0AF] text-white px-9 mx-32 w-[30%] py-2 rounded-lg"
                 >
                   Signup
                 </button>

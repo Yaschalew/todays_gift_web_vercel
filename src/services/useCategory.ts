@@ -1,9 +1,23 @@
 import { useQuery } from '@tanstack/react-query';
-import { getCategory } from '../api/apiCategory';
+import { getAllCategory } from '../api/apiCategory';
+
+type Category = {
+    uid: number;
+    name: string;
+    parent: string;
+    children: [];
+    type: string;
+};
+
+type mainCategory = {
+    categories: Category[]
+}
+
 export function useCategory () {
-    const {isLoading, data: category, error} =  useQuery({
+    const {isLoading :isCategory, data: category, error} =  useQuery<mainCategory>({
         queryKey: ['Category'],
-        queryFn: getCategory
+        queryFn: getAllCategory
        }) ;
-       return {isLoading, error, category} 
+       const categories = category?.categories;
+       return {isCategory, error, categories} 
     }

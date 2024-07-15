@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useProducts } from "./useProduct";
-import { Navigate, useNavigate } from 'react-router-dom';
+// import { useProducts } from "../../services/useProduct";
+// import {  useNavigate } from 'react-router-dom';
 
 type ProductProps = {
   id: string;
@@ -21,11 +21,12 @@ type CartItem = {
 };
 
 export function useCart() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   
 
-  const { isLoading, product } = useProducts();
+  // const { isLoading, product } = useProducts();
   const [count, setCount] = useState(1);
+  console.log(setCount)
   let cart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
 
   const addToCart = (product: ProductProps, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

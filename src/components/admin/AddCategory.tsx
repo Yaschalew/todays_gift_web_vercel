@@ -4,6 +4,15 @@ import { Input, Form, Select, Button } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { CloseCircleOutlined, CameraFilled } from "@ant-design/icons";
+import { useCategory } from "../../services/useCategory";
+
+type Category = {
+  uid: number;
+  name: string;
+  parent: string;
+  children: [];
+  type: string;
+};
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -15,7 +24,8 @@ const AddCategory = () => {
   const { id } = useParams();
   const [form] = Form.useForm();
 
-  const [categories, setCategory] = useState([]);
+  const {isCategory, error, categories } = useCategory();
+  const MainCategories = categories?.filter((item : Category) => item.type == 'root');
   useEffect(() => {
     client.get("/categories").then((response) => {
       setCategory(response.data);
@@ -59,7 +69,7 @@ const AddCategory = () => {
                   area: "category",
                 };
                 if (response2.status === 200) {
-                  client.post("/saveFile", fileBody).then((response3) => {});
+                  client.post("/saveFile", fileBody).then((response3) => { });
                 }
               });
             });
@@ -84,7 +94,7 @@ const AddCategory = () => {
                   area: "category",
                 };
                 if (response2.status === 200) {
-                  client.post("/saveFile", fileBody).then((response3) => {});
+                  client.post("/saveFile", fileBody).then((response3) => { });
                 }
               });
             });
@@ -116,8 +126,8 @@ const AddCategory = () => {
       }
     });
     setRemoteImages([...images]);
-    client.get("/deleteFile/" + name).then((response4) => {});
-    client.delete("/file/" + id).then((response4) => {});
+    client.get("/deleteFile/" + name).then((response4) => { });
+    client.delete("/file/" + id).then((response4) => { });
   };
 
   return (
@@ -142,10 +152,11 @@ const AddCategory = () => {
             >
               <Input placeholder="enter category name" />
             </Form.Item>
+            
             <Form.Item name="parentId" label="Parent Category">
               <Select placeholder="Select parent category" allowClear>
-                {categories.map((item: any) => (
-                  <Option key={item.id} value={item.id}>
+                {MainCategories?.map((item: Category, index) => (
+                  <Option key={index} value={item.name}>
                     {item.name}
                   </Option>
                 ))}

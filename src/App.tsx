@@ -1,15 +1,15 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import AddCategory from "./components/admin/AddCategory";
-import AddProduct from "./components/admin/AddProduct";
-import Dashboard from "./components/admin/Dashboard";
-import Settings from "./components/admin/Settings";
-import Category from "./components/admin/Category";
-import Product from "./components/admin/Product";
-import Users from "./components/admin/Users";
+// import AddCategory from "./components/admin/AddCategory";
+// import AddProduct from "./components/admin/AddProduct";
+// import Dashboard from "./components/admin/Dashboard";
+// import Settings from "./components/admin/Settings";
+// import Category from "./components/admin/Category";
+// import Product from "./components/admin/Product";
+// import Users from "./components/admin/Users";
 import PageNotFound from "./ui/PageNotFound";
-import Admin from "./components/admin/Admin";
+// import Admin from "./components/admin/Admin";
 import { Toaster } from 'react-hot-toast';
 import Products from "./pages/Products";
 import Signup from "./pages/Signup";
@@ -20,11 +20,12 @@ import './baoutest-display.otf';
 
 
 
-import ProductList from "./components/admin/ProductList";
-import Cart from "./pages/Cart";
+// import ProductList from "./components/admin/ProductList";
 import Search from "./pages/Search";
 import Checkout from "./pages/Checkout";
 import Profile from "./pages/Profile";
+import AllCategory from "./pages/AllCategory";
+import Categories from "./pages/Categories";
 //import AddProduct from "./components/admin/AddProduct";
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -44,12 +45,13 @@ function App() {
             <Route index element={<Navigate replace to="home" />} />
             <Route path="home" element={<Home />} />
             <Route path="product/:id" element={<Products />} />
-            <Route path="cart" element={<Cart />} />
             <Route path="search/:id" element={<Search />} />
-            <Route path="checkout" element={<Checkout />} />
+            <Route path="category/:id" element={<Categories />} />
+            <Route path="category" element={<AllCategory/>} />
+            <Route path="checkout/:id" element={<Checkout />} />
             <Route path="profile" element={<Profile />} />
           </Route>
-          <Route path="/admin" element={<Admin />}>
+          {/* <Route path="/admin" element={<Admin />}>
               <Route path="/admin/dashboard" element={<Dashboard/>} />
               <Route path="/admin/product" element={<Product/>} />
               <Route path="/admin/add-product" element={<AddProduct />} />
@@ -60,7 +62,7 @@ function App() {
               <Route path="/admin/users" element={<Users/>} />
               <Route path="/admin/settings" element={<Settings/>} />
               <Route path="/admin/product" element={<ProductList />} />
-            </Route>
+            </Route> */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<PageNotFound />} />

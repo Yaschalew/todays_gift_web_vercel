@@ -28,7 +28,7 @@ const Description = ({filterProduct}:Productsprop) =>{
           children: (
             <div className="h-auto">
             <p >{filterProduct[0]?.description}</p>
-            <p >Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+            <p className="w-[80%]">Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
             Nihil laboriosam facilis distinctio adipisci nam vitae repellendus deleniti fugit, tenetur totam quasi alias odit 
             animi beatae eligendi dicta sit amet? Ipsum.</p>
             </div>
@@ -40,7 +40,7 @@ const Description = ({filterProduct}:Productsprop) =>{
           children: (
             <div className="h-auto">
             <p >{filterProduct[0]?.description}</p>
-            <p >Lorem ipsum dolor sit, amet consectetur adipisicing elit specific. 
+            <p className="w-[80%]">Lorem ipsum dolor sit, amet consectetur adipisicing elit specific. 
             Nihil laboriosam facilis distinctio adipisci nam vitae repellendus deleniti fugit, tenetur totam quasi alias odit 
             animi beatae eligendi dicta sit amet? Ipsum.</p>
             </div>
@@ -50,7 +50,8 @@ const Description = ({filterProduct}:Productsprop) =>{
     
       
     return (
-        <Flex className="m-auto w-[50%] ">
+        <Flex className="m-auto sm:
+        w-[75%] w-[85%] ">
             <Tabs defaultActiveKey="1" items={items}  />
        </Flex>
 

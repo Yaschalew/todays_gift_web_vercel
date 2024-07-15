@@ -1,8 +1,13 @@
 
 import axios from "axios";
-const client = axios.create({ 
-  baseURL: process.env.REACT_APP_BASE_URL
+
+export const dummy = axios.create({
+  baseURL:  import.meta.env.VITE_APP_DUMMY
+});
+
+export const client = axios.create({ 
+  baseURL: import.meta.env.VITE_BASE_URL
 });
 
 
-export default client;
+
