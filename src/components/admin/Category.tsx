@@ -4,7 +4,7 @@ import type { ColumnsType, TableProps } from 'antd/es/table';
 import { PlusOutlined } from '@ant-design/icons';
 import {Link} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
+
 import { useCategory } from '../../services/useCategory';
 
 
