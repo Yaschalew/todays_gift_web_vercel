@@ -18,6 +18,7 @@ import Header from "./ui/Header";
 import Home from "./pages/Home";
 import './baoutest-display.otf';
 
+//updated
 
 
 // import ProductList from "./components/admin/ProductList";
@@ -47,7 +48,7 @@ function App() {
             <Route path="product/:id" element={<Products />} />
             <Route path="search/:id" element={<Search />} />
             <Route path="category/:id" element={<Categories />} />
-            <Route path="category" element={<AllCategory/>} />
+            <Route path="category" element={<AllCategory />} />
             <Route path="checkout/:id" element={<Checkout />} />
             <Route path="profile" element={<Profile />} />
           </Route>

@@ -10,6 +10,7 @@ interface categorys {
   images: string;
 };
 
+//updated
 const category = [
   { name: "Gifts for Female Friends", images: `${images.C2}` },
   { name: "Gifts for Girlfriends", images: `${images.C1}` },
